@@ -218,6 +218,7 @@ impl BucketQueueTask {
     #[tracing::instrument(name = "background queue task", skip(self), fields(path = ?self.path))]
     pub async fn run(self) {
         while let Some(queue_tx) = self.next().await {
+            #[allow(unused)]
             if self.global.is_locked() {
                 self.global.0.lock().await;
             }
